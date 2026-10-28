@@ -53,6 +53,7 @@ The following results are reported in the paper across eight paired synthetic an
 	<summary><strong>No-reference image quality assessment results on real hazy datasets</strong> (click to expand) </summary>
     <p><img src = "pics/assets/nr.png" width=50% height=50%></p>
 </details>
+
 > [!TIP]
 > Each entry is **PSNR (dB) / SSIM**. PSUID and PSUID-B use different training batch sizes; the repository provides both `PSUID_bs1.pth` and `PSUID_bs4.pth`. The difference between PSUID and PSUID-B lies in the training batch size. We observe that the model trained with a smaller batch size (e.g., 1) achieves higher performance on synthetic datasets, whereas the model trained with a larger batch size performs better on real-world hazy datasets. This behavior can be attributed to the distinct statistical properties of synthetic and real haze data. Smaller batch sizes favor fitting the more deterministic haze patterns in synthetic data, while larger batch sizes provide more stable gradient estimates and improve robustness to the higher variability and noise present in real-world haze. We do not intend to gain advantage by reporting multiple variants. Instead, the consistent performance across both settings demonstrates the robustness under different optimization regimes. 
 
