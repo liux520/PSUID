@@ -1,0 +1,116 @@
+# Byte-compiled Python and interpreter caches
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+
+# Native extensions and build artifacts
+*.so
+*.pyd
+*.dll
+build/
+dist/
+downloads/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+conda-env/
+
+# Test, lint, type-check, and coverage caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.code-workspace
+*.iml
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs and local process files
+*.log
+*.pid
+*.pid.lock
+*.seed
+*.out
+
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Package-manager and installer caches
+.cache/
+pip-log.txt
+
+# BasicSR/PSUID experiment outputs
+experiments/
+results/
+outputs/
+tb_logger/
+wandb/
+runs/
+checkpoints/
+pretrained_models/
+visualization/
+
+# Generated evaluation artifacts
+pics/transfer/
+*.csv
+*_psnr.txt
+*_ssim.txt
+
+# Local datasets and large intermediate data
+/datasets/
+/data/
+/lmdb/
+*.lmdb
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.pt
+*.ckpt
+*.state
+
+# Model checkpoints are ignored by default. The released files below are
+# intentional repository artifacts and should be stored with Git LFS.
+*.pth
+!weights/*.pth
+!pyiqa/weights/*.pth
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
