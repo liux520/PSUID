@@ -1,0 +1,222 @@
+name: PSUID_nafnet32_bs4_train.yml
+model_type: PSUIDInheritModel
+scale: 1
+num_gpu: 1
+manual_seed: 3407
+stage: bs_train
+
+# dataset and data loader settings
+datasets:
+  train:
+    name: haze
+    type: UnpairedImageDataset
+    dataroot_gt1: datasets/Dehaze/RESIDE/OTS/target
+    dataroot_lq1: datasets/Dehaze/RESIDE/OTS/input
+    return_lqs_len: False
+
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+
+    pad_or_resize_mode: 'resize'
+    gt_size: 288 # 256  # 512
+    use_hflip: true
+    use_rot: false  # false
+
+    # data loader
+    num_worker_per_gpu: 4  # 8 16
+    batch_size_per_gpu: 4 # 8 batchsize set to 1 or 2
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+
+  val_1:
+    name: SOTS_outdoor
+    type: DehazeImageTestDataset
+    # dataroot_gt: datasets/Derain/Rain13K/test/Rain100L/target
+    dataroot_lq: datasets/Dehaze/RESIDE/SOTS/outdoor/input
+    gt_suffix: .png
+    io_backend:
+      type: disk
+  val_2:
+    name: SOTS_indoor
+    type: DehazeImageTestDataset
+    # dataroot_gt: datasets/Derain/Rain13K/test/Rain100L/target
+    dataroot_lq: datasets/Dehaze/RESIDE/SOTS/indoor/input
+    gt_suffix: .png
+    io_backend:
+      type: disk
+  val_3:
+    name: HSTS
+    type: PairedImageDataset
+    dataroot_gt: datasets/Dehaze/RESIDE/HSTS/synthetic/original
+    dataroot_lq: datasets/Dehaze/RESIDE/HSTS/synthetic/synthetic
+    io_backend:
+      type: disk
+  val_4:
+    name: I_hazy
+    type: PairedImageDataset
+    dataroot_gt: datasets/Dehaze/data/I-HazeFullx/GT
+    dataroot_lq: datasets/Dehaze/data/I-HazeFullx/Input
+    io_backend:
+      type: disk
+  val_5:
+    name: O_hazy
+    type: PairedImageDataset
+    dataroot_gt: datasets/Dehaze/data/O-HazeFullx/GT
+    dataroot_lq: datasets/Dehaze/data/O-HazeFullx/Input
+    io_backend:
+      type: disk
+  val_6:
+    name: NH_HAZE
+    type: PairedImageDataset
+    dataroot_gt: datasets/Dehaze/data/NH-HAZE/target_down2
+    dataroot_lq: datasets/Dehaze/data/NH-HAZE/input_down2
+    io_backend:
+      type: disk
+  val_7:
+    name: Smoke
+    type: PairedImageDataset
+    dataroot_gt: datasets/Dehaze/data/Smoke/test/clean
+    dataroot_lq: datasets/Dehaze/data/Smoke/test/hazy
+    io_backend:
+      type: disk
+
+network_g:
+  type: NAFNet
+  width: 32
+  enc_blk_nums: [ 2, 2, 4, 8 ]
+  middle_blk_num: 12
+  dec_blk_nums: [ 2, 2, 2, 2 ]
+  path: ''
+
+network_m:
+  type: DegAEOKNet
+
+network_d:
+  type: NLayerDiscriminator3  # NLayerDiscriminator
+  input_nc: 3  # 6
+
+net_dehaze_d:
+  type: UNetDiscriminatorSN  # NLayerDiscriminator3  # NLayerDiscriminator
+  num_in_ch: 3  # 6
+
+# path
+path:
+  pretrain_network_g: weights/PSUID_bs4.pth
+  param_key_g: params
+  strict_load_g: True
+
+  pretrain_network_m: weights/DegradationTransfer_PSUID.pth
+  param_key_m: params
+  strict_load_m: True
+
+  pretrain_network_d: ~
+  param_key_d: params
+  strict_load_d: True
+
+  pretrain_network_F: ~
+  param_key_F: params
+  strict_load_F: True
+
+
+  pretrain_network_dehaze_d: ~
+  param_key_dehaze_d: params
+  strict_load_dehaze_d: False
+
+  resume_state: ~
+
+# training settings
+train:
+  ema_decay: 0.999  # -1  #
+  NCE_loss_weight: 0.1  # 0.01
+  clip_loss_weight: 0.5
+  q_physical_gan: 0.1
+  q_learned_gan: 0.5
+  q_fake_gan: 1
+  q_student_gan: 0.05
+
+  beta_mul: 2  # 1
+
+  optim_g:
+    type: Adam
+    lr: !!float 1e-5
+    weight_decay: 0
+    betas: [ 0.9, 0.99 ]
+  optim_m:
+    type: Adam
+    lr: !!float 1e-5
+    weight_decay: 0
+    betas: [ 0.9, 0.99 ]
+  optim_d:
+    type: Adam
+    lr: !!float 1e-5
+    weight_decay: 0
+    betas: [ 0.9, 0.99 ]
+  optim_dehaze_d:
+    type: Adam
+    lr: !!float 1e-5
+    weight_decay: 0
+    betas: [ 0.9, 0.99 ]
+  optim_F:
+    type: Adam
+    lr: !!float 1e-5
+    weight_decay: 0
+    betas: [ 0.9, 0.99 ]
+
+  scheduler:
+    type: MultiStepLR
+    #      milestones: [ 200000, 250000 ]
+    milestones: [ 50000, 50000, 50000 ]
+    gamma: 0.5
+  #    type: CosineAnnealingRestartLR
+  #    periods: [ 100000, 100000, 100000]  # , 200000]
+  ##    periods: [ 200000, 150000, 50000] #, 200000, 150000, 50000, 200000, 150000, 50000 ]
+  #    #[ 400000, 400000, 200000 ]
+  #    restart_weights: [ 1, 0.5, 0.1 ]  # , 0.5, 0.1] #, 0.1, 1, 0.5, 0.1, 1, 0.5, 0.1 ]
+  #    #                [ 5e-4, 5e-4, 5e-4, 3e-4, 2e-4, 1e-4,  1e-4, 5e-5]
+
+  total_iter: 200000
+  warmup_iter: -1  # no warm up
+
+  # losses
+  pixel_opt:
+    type: PSNRLoss
+    loss_weight: 1.0  # 1.0
+    reduction: mean
+  l1_opt:
+    type: L1Loss
+    loss_weight: 1.0  # 0.01
+    reduction: mean
+
+  net_d_iters: 1
+  net_d_init_iters: 0
+
+  save_flag: True
+  save_freq: 1000
+  depthv2_path: /data1/Foundation/DepthAnything
+  CLIPSurgery: /data1/Foundation/clip/ViT-B-16-CLIPSurgery.pt
+
+# validation settings
+val:
+  val_freq: 1000
+  save_img: False
+
+  metrics:
+    psnr:
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: False
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: False
+
+# logging settings
+logger:
+  print_freq: 1000
+  save_checkpoint_freq: 1000
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
