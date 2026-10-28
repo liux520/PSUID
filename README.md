@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌫️ PSUID
+# 🌫️ PSUID (IEEE TMM 2026)
 
 ### **Progressive Supervision with Disentangled Learning and Density-Aware for Image Dehazing from Unpaired Clean and Hazy Images**
 
@@ -9,6 +9,9 @@
   <a href="pdf/PSUID-supp.pdf">📎 Supplementary</a> •
   <a href="weights/">🧠 Pretrained Weights</a> 
 </p>
+
+</div>
+
 ---
 
 > [!IMPORTANT]
@@ -202,7 +205,3 @@ This project is released under the MIT.
  Should you have any question, please create an issue on this repository or contact at [liuxmail1220@gmail.com](mailto:liuxmail1220@gmail.com)
 
 ---
-
-<div align="center">
-**If PSUID helps your research, consider starring the repository. ⭐**
-</div>
