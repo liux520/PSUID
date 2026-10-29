@@ -7,7 +7,7 @@
 <p>
   <a href="pdf/PSUID.pdf">📄 Paper</a> •
   <a href="pdf/PSUID-supp.pdf">📎 Supplementary</a> •
-  <a href="weights/">🧠 Pretrained Weights</a> 
+  <a href="https://pan.baidu.com/s/1KhT7MvH1dUplIONTE4mePw?pwd=x4k2">🧠 Pretrained Weights</a> 
 </p>
 
 </div>
@@ -99,7 +99,7 @@ cd PSUID
 
 
 
-## 🧠 Pretrained Models
+## 🧠 [Pretrained Models](https://pan.baidu.com/s/1KhT7MvH1dUplIONTE4mePw?pwd=x4k2)
 
 | Checkpoint | Purpose | Approximate size |
 |---|---|---:|
@@ -190,6 +190,7 @@ This codebase builds on or integrates ideas and implementations from:
 - [CLIP](https://github.com/openai/CLIP) and [CLIP-Surgery](https://github.com/xmed-lab/CLIP_Surgery)
 - [pyiqa](https://github.com/chaofengc/IQA-PyTorch)
 - [CSUD](https://github.com/GuangluDong0728/CSUD-Unsupervised-Deraining-CVPR2025)
+- [CORUN]([cnyvfang/CORUN-Colabator: [NeurIPS2024 Spotlight\] Real-world Image Dehazing with Coherence-based Pseudo Labeling and Cooperative Unfolding Network](https://github.com/cnyvfang/CORUN-Colabator))
 
 Please cite the corresponding upstream projects when using those components.
 
@@ -203,6 +204,6 @@ This project is released under the MIT.
 
 ## 📬 Contact
 
- Should you have any question, please create an issue on this repository or contact at [liuxmail1220@gmail.com](mailto:liuxmail1220@gmail.com)
+If you have any questions, please contact this email address [liuxmail1220@gmail.com](mailto:liuxmail1220@gmail.com)
 
 ---
