@@ -190,7 +190,7 @@ This codebase builds on or integrates ideas and implementations from:
 - [CLIP](https://github.com/openai/CLIP) and [CLIP-Surgery](https://github.com/xmed-lab/CLIP_Surgery)
 - [pyiqa](https://github.com/chaofengc/IQA-PyTorch)
 - [CSUD](https://github.com/GuangluDong0728/CSUD-Unsupervised-Deraining-CVPR2025)
-- [CORUN]([cnyvfang/CORUN-Colabator: [NeurIPS2024 Spotlight\] Real-world Image Dehazing with Coherence-based Pseudo Labeling and Cooperative Unfolding Network](https://github.com/cnyvfang/CORUN-Colabator))
+- [CORUN](https://github.com/cnyvfang/CORUN-Colabator)
 
 Please cite the corresponding upstream projects when using those components.
 
